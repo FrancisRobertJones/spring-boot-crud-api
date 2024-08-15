@@ -8,8 +8,9 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Data
+@Builder
+
 public class Author {
     private Long id;
     private String name;
