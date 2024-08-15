@@ -1,9 +1,20 @@
+DROP TABLE IF EXISTS "books";
+DROP TABLE IF EXISTS "authors";
 
-DROP TABLE IF EXISTS users;
+CREATE SEQUENCE IF NOT EXISTS authors_id_seq;
 
-CREATE TABLE users (
-                       id SERIAL PRIMARY KEY,
-                       username VARCHAR(50) NOT NULL,
-                       email VARCHAR(100) NOT NULL,
-                       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE "authors" (
+                           "id" BIGINT DEFAULT nextval('authors_id_seq') NOT NULL,
+                           "name" TEXT,
+                           "age" INTEGER,
+                           CONSTRAINT "authors_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE "books" (
+                         "isbn" TEXT NOT NULL,
+                         "title" TEXT,
+                         "author_id" BIGINT,
+                         CONSTRAINT "books_pkey" PRIMARY KEY ("isbn"),
+                         CONSTRAINT "fk_author" FOREIGN KEY ("author_id")
+                             REFERENCES "authors"("id")
 );

@@ -9,22 +9,8 @@ import javax.sql.DataSource;
 
 @SpringBootApplication
 @Log
-public class DataBaseTest implements CommandLineRunner {
-
-	private final DataSource dataSource;
-
-	public DataBaseTest(final DataSource dataSource) {
-		this.dataSource = dataSource;
-	}
+public class DataBaseTest {
 	public static void main(String[] args) {
 		SpringApplication.run(DataBaseTest.class, args);
 	}
-
-	@Override
-	public void run(String... args) throws Exception {
-		log.info("Datasource" + dataSource.toString());
-		final JdbcTemplate restTemplate = new JdbcTemplate(dataSource);
-		restTemplate.execute("select 1");
-	}
-
 }
