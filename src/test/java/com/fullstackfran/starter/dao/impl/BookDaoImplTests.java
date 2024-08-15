@@ -1,8 +1,6 @@
-package com.fullstackfran.starter.dao;
+package com.fullstackfran.starter.dao.impl;
 
 
-import com.fullstackfran.starter.dao.impl.BookDaoImpl;
-import com.fullstackfran.starter.domain.Author;
 import com.fullstackfran.starter.domain.Book;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
@@ -38,4 +37,6 @@ public class BookDaoImplTests {
                 eq("978-1-2345-6789-8"), eq("The shadow in the Attic"), eq(1L)
         );
     }
+
+
 }
