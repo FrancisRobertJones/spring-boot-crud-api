@@ -8,8 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-
+import static com.fullstackfran.starter.TestDataUtil.createTestAuthor;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
@@ -24,11 +23,7 @@ public class AuthorDaoImplTests {
 
     @Test
     public void testThatCreateAuthorGenerateCorrectSql() {
-        Author author = Author.builder()
-                .id(1L)
-                .name("Abigail Rose")
-                .age(80)
-                .build();
+        Author author = createTestAuthor();
 
         underTest.create(author);
 
@@ -38,12 +33,13 @@ public class AuthorDaoImplTests {
         );
     }
 
+
     @Test
     public void testThatFindOneGeneratesTheCorrectSql() {
         underTest.findOne(1L);
 
         verify(jdbcTemplate).query(
-                eq("SELECT id, name, age FROM books WHERE id=? LIMIT 1"),
+                eq("SELECT id, name, age FROM books WHERE author_id=? LIMIT 1"),
                 ArgumentMatchers.<AuthorDaoImpl.AuthorRowMapper>any(),
                 eq(1L)
         );

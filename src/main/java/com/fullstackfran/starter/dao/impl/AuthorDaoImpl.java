@@ -30,7 +30,7 @@ public class AuthorDaoImpl implements AuthorDao {
     @Override
     public Optional<Author> findOne(Long authorId) {
         List<Author> results = jdbcTemplate.query(
-                "SELECT id, name, age FROM books WHERE id=? LIMIT 1",
+                "SELECT id, name, age FROM authors WHERE id=? LIMIT 1",
                 new AuthorRowMapper(), authorId
                 );
         return results.stream().findFirst();
