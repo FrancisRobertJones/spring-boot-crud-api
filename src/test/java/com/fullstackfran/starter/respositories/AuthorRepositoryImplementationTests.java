@@ -54,16 +54,15 @@ public class AuthorRepositoryImplementationTests {
         Iterable<Author> result = underTest.findAll();
         assertThat(result).hasSize(3).containsExactly(authorA, authorB, authorC);
     }
-}
 
-    /*
+
     @Test
     public void testThatAuthorCanBeUpdated() {
         Author authorA = TestDataUtil.createTestAuthorA();
-        underTest.create(authorA);
+        underTest.save(authorA);
         authorA.setName("UPDATED");
-        underTest.update(authorA.getId(), authorA);
-        Optional<Author> result = underTest.findOne(authorA.getId());
+        underTest.save(authorA);
+        Optional<Author> result = underTest.findById(authorA.getId());
         assertThat(result).isPresent();
         assertThat(result.get()).isEqualTo(authorA);
     }
@@ -71,12 +70,10 @@ public class AuthorRepositoryImplementationTests {
     @Test
     public void testThatAuthorCanBeDeleted() {
         Author authorA = TestDataUtil.createTestAuthorA();
-        underTest.create(authorA);
-        underTest.delete(authorA.getId());
-        Optional<Author> result = underTest.findOne(authorA.getId());
+        underTest.save(authorA);
+        underTest.delete(authorA);
+        Optional<Author> result = underTest.findById(authorA.getId());
         assertThat(result).isEmpty();
     }
 
-
 }
-*/

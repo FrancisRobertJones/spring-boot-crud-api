@@ -57,18 +57,15 @@ public class BookRepositoryImplementationTests {
                 .containsExactly(bookA, bookB, bookC);
 
     }
-    }
-/*
+
     @Test
     public void testThatBookCanBeUpdated() {
         Author author = TestDataUtil.createTestAuthorA();
-        Book book = TestDataUtil.createTestBookA();
-        authorDao.create(author);
-        book.setAuthorId(author.getId());
-        underTest.create(book);
+        Book book = TestDataUtil.createTestBookA(author);
+        underTest.save(book);
         book.setTitle("upated");
-        underTest.update(book.getIsbn(), book);
-        Optional<Book> result = underTest.findOne(book.getIsbn());
+        underTest.save(book);
+        Optional<Book> result = underTest.findById(book.getIsbn());
         assertThat(result).isPresent();
         assertThat(result.get()).isEqualTo(book);
     }
@@ -76,14 +73,10 @@ public class BookRepositoryImplementationTests {
     @Test
     public void testThatBookCanBeDeleted() {
         Author author = TestDataUtil.createTestAuthorA();
-        Book book = TestDataUtil.createTestBookA();
-        authorDao.create(author);
-        book.setAuthorId(author.getId());
-        underTest.create(book);
-        underTest.delete(book.getIsbn());
-        Optional<Book> result = underTest.findOne(book.getIsbn());
+        Book book = TestDataUtil.createTestBookA(author);
+        underTest.delete(book);
+        Optional<Book> result = underTest.findById(book.getIsbn());
         assertThat(result).isEmpty();
     }
 }
 
-*/
