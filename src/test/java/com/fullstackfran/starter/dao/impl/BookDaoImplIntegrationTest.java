@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,13 +32,35 @@ public class BookDaoImplIntegrationTest {
 
     @Test
     public void testThatBookCanBeCreatedAndRecalled() {
-        Author author = TestDataUtil.createTestAuthor();
+        Author author = TestDataUtil.createTestAuthorA();
         authorDao.create(author);
-        Book book = TestDataUtil.createTestBook();
+        Book book = TestDataUtil.createTestBookA();
         book.setAuthorId(author.getId());
         underTest.create(book);
         Optional<Book> result = underTest.findOne("helloisbn");
         assertThat(result).isPresent();
         assertThat(result.get()).isEqualTo(book);
+    }
+
+    @Test
+    public void testThatFindAllCreatesTheCorrectSql() {
+        Author author = TestDataUtil.createTestAuthorA();
+        authorDao.create(author);
+
+        Book bookA = TestDataUtil.createTestBookA();
+        bookA.setAuthorId(author.getId());
+        underTest.create(bookA);
+
+        Book bookB = TestDataUtil.createTestBookB();
+        bookB.setAuthorId(author.getId());
+        underTest.create(bookB);
+
+        Book bookC = TestDataUtil.createTestBookC();
+        bookC.setAuthorId(author.getId());
+        underTest.create(bookC);
+
+        List<Book> results = underTest.find();
+
+        assertThat(results).hasSize(2);
     }
 }

@@ -8,7 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
-import static com.fullstackfran.starter.TestDataUtil.createTestAuthor;
+import static com.fullstackfran.starter.TestDataUtil.createTestAuthorA;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
@@ -23,7 +23,7 @@ public class AuthorDaoImplTests {
 
     @Test
     public void testThatCreateAuthorGenerateCorrectSql() {
-        Author author = createTestAuthor();
+        Author author = createTestAuthorA();
 
         underTest.create(author);
 
@@ -43,5 +43,13 @@ public class AuthorDaoImplTests {
                 ArgumentMatchers.<AuthorDaoImpl.AuthorRowMapper>any(),
                 eq(1L)
         );
+    }
+
+    @Test
+    public void testThatFindAllCreatesTheCorrectSql() {
+        underTest.find();
+        verify(jdbcTemplate).query(
+                eq("SELECT id, name, age FROM authors"),
+                ArgumentMatchers.<AuthorDaoImpl.AuthorRowMapper>any());
     }
 }
