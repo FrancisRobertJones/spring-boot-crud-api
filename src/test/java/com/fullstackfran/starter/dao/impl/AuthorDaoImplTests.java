@@ -39,7 +39,7 @@ public class AuthorDaoImplTests {
         underTest.findOne(1L);
 
         verify(jdbcTemplate).query(
-                eq("SELECT id, name, age FROM books WHERE author_id=? LIMIT 1"),
+                eq("SELECT id, name, age FROM authors WHERE id=? LIMIT 1"),
                 ArgumentMatchers.<AuthorDaoImpl.AuthorRowMapper>any(),
                 eq(1L)
         );

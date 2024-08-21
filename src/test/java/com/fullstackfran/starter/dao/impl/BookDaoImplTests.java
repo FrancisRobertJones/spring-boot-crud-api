@@ -1,6 +1,7 @@
 package com.fullstackfran.starter.dao.impl;
 
 
+import com.fullstackfran.starter.TestDataUtil;
 import com.fullstackfran.starter.domain.Book;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,17 +26,13 @@ public class BookDaoImplTests {
 
     @Test
     public void testThatCreatesCorrectSql() {
-        Book book = Book.builder()
-                .isbn("978-1-2345-6789-8")
-                .title("The shadow in the Attic")
-                .authorId(1L)
-                .build();
+        Book book = TestDataUtil.createTestBookB();
 
         underTest.create(book);
 
         verify(jdbcTemplate).update(
-                eq("INSERT INTO authors (isbn, name, author) VALUES (?, ?, ?)"),
-                eq("978-1-2345-6789-8"), eq("The shadow in the Attic"), eq(1L)
+                eq("INSERT INTO books (isbn, title, author_id) VALUES (?, ?, ?)"),
+                eq("sdfjnsdjfns"), eq("Return of the king"), eq(123L)
         );
     }
 
