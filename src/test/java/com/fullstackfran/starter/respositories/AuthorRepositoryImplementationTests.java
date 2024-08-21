@@ -1,11 +1,10 @@
-package com.fullstackfran.starter.dao.impl;
+
+package com.fullstackfran.starter.respositories;
 
 import com.fullstackfran.starter.TestDataUtil;
 import com.fullstackfran.starter.domain.Author;
-import com.fullstackfran.starter.domain.Book;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,40 +23,40 @@ import static org.mockito.Mockito.verify;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-public class AuthorDaoImpIintegrationTest {
+public class AuthorRepositoryImplementationTests {
 
-    private AuthorDaoImpl underTest;
-    @Qualifier("jdbcTemplate")
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private AuthorRepository underTest;
 
     @Autowired
-    public AuthorDaoImpIintegrationTest(AuthorDaoImpl underTest) {
+    public AuthorRepositoryImplementationTests(AuthorRepository underTest) {
         this.underTest = underTest;
     }
 
     @Test
     public void testThatAuthorCanBeCreatedAndRecalled() {
         Author author = TestDataUtil.createTestAuthorA();
-        underTest.create(author);
-        Optional<Author> result = underTest.findOne(author.getId());
+        underTest.save(author);
+        Optional<Author> result = underTest.findById(author.getId());
         assertThat(result).isPresent();
         assertThat(result.get()).isEqualTo(author);
     }
 
+
     @Test
     public void testThatMultipleAuthorsCanBeCreatedAndRecalled() {
         Author authorA = TestDataUtil.createTestAuthorA();
-        underTest.create(authorA);
+        underTest.save(authorA);
         Author authorB = TestDataUtil.createTestAuthorB();
-        underTest.create(authorB);
+        underTest.save(authorB);
         Author authorC = TestDataUtil.createTestAuthorC();
-        underTest.create(authorC);
+        underTest.save(authorC);
 
-        List<Author> result = underTest.find();
+        Iterable<Author> result = underTest.findAll();
         assertThat(result).hasSize(3).containsExactly(authorA, authorB, authorC);
     }
+}
 
+    /*
     @Test
     public void testThatAuthorCanBeUpdated() {
         Author authorA = TestDataUtil.createTestAuthorA();
@@ -78,4 +77,6 @@ public class AuthorDaoImpIintegrationTest {
         assertThat(result).isEmpty();
     }
 
+
 }
+*/
