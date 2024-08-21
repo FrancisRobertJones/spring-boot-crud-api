@@ -1,7 +1,11 @@
 package com.fullstackfran.starter.dao.impl;
 
+
 import com.fullstackfran.starter.TestDataUtil;
+import com.fullstackfran.starter.dao.AuthorDao;
+import com.fullstackfran.starter.dao.BookDao;
 import com.fullstackfran.starter.domain.Author;
+import com.fullstackfran.starter.domain.Book;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,26 +16,28 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-public class AuthorDaoImpIintegrationTest {
+public class BookDaoImplIntegrationTest {
 
-    private AuthorDaoImpl underTest;
+    private BookDaoImpl underTest;
+    private AuthorDao authorDao;
 
     @Autowired
-    public AuthorDaoImpIintegrationTest(AuthorDaoImpl underTest) {
+    public BookDaoImplIntegrationTest(BookDaoImpl underTest, AuthorDao authorDao) {
         this.underTest = underTest;
+        this.authorDao = authorDao;
     }
 
     @Test
-    public void testThatAuthorCanBeCreatedAndRecalled() {
+    public void testThatBookCanBeCreatedAndRecalled() {
         Author author = TestDataUtil.createTestAuthor();
-        underTest.create(author);
-        Optional<Author> result = underTest.findOne(author.getId());
+        authorDao.create(author);
+        Book book = TestDataUtil.createTestBook();
+        book.setAuthorId(author.getId());
+        underTest.create(book);
+        Optional<Book> result = underTest.findOne("helloisbn");
         assertThat(result).isPresent();
-        assertThat(result.get()).isEqualTo(author);
+        assertThat(result.get()).isEqualTo(book);
     }
-
-
 }
