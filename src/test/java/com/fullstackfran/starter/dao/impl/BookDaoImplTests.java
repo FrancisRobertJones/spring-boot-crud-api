@@ -46,5 +46,24 @@ public class BookDaoImplTests {
         );
     }
 
+    @Test
+    public void testThatUpdateGeneratesTheCorrectSql() {
+        Book book = TestDataUtil.createTestBookA();
+        underTest.update("helloisbn", book);
+        verify(jdbcTemplate).update(
+                "UPDATE books SET isbn = ?, title = ?, author_id = ? WHERE isbn = ?",
+                    "helloisbn", "The lord of the rings", 123L, "helloisbn"
+                );
+    }
+
+    @Test
+    public void testThatDeleteGeneratesTheCorrectSql() {
+        underTest.delete("helloisbn");
+        verify(jdbcTemplate).update(
+                "DELETE FROM books where isbn = ?",
+                "helloisbn"
+        );
+    }
+
 
 }
