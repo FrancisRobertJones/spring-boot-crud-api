@@ -1,5 +1,7 @@
 package com.fullstackfran.starter;
 
+import com.fullstackfran.starter.domain.Dto.AuthorDto;
+import com.fullstackfran.starter.domain.Dto.BookDto;
 import com.fullstackfran.starter.entities.AuthorEntity;
 import com.fullstackfran.starter.entities.BookEntity;
 
@@ -31,7 +33,7 @@ public final class TestDataUtil {
         return authorEntity;
     }
 
-    public static BookEntity createTestBookA(final AuthorEntity authorEntity) {
+    public static BookEntity createTestBookEntityA(final AuthorEntity authorEntity) {
         BookEntity bookEntityA = BookEntity.builder()
                 .isbn("helloisbn")
                 .title("The lord of the rings")
@@ -55,6 +57,14 @@ public final class TestDataUtil {
                 .authorEntity(authorEntity)
                 .build();
         return bookEntityC;
+    }
+
+    public static BookDto createTestBookDtoA(final AuthorDto author) {
+        return  BookDto.builder()
+                .isbn("kmsmmm")
+                .title("Two towers")
+                .author(author)
+                .build();
     }
 
 }

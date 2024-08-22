@@ -31,7 +31,7 @@ public class BookEntityRepositoryIntegrationTests {
     @Test
     public void testThatBookCanBeCreatedAndRecalled() {
         AuthorEntity authorEntity = TestDataUtil.createTestAuthorA();
-        BookEntity bookEntity = TestDataUtil.createTestBookA(authorEntity);
+        BookEntity bookEntity = TestDataUtil.createTestBookEntityA(authorEntity);
         underTest.save(bookEntity);
         Optional<BookEntity> result = underTest.findById("helloisbn");
         assertThat(result).isPresent();
@@ -41,7 +41,7 @@ public class BookEntityRepositoryIntegrationTests {
     @Test
     public void testThatFindAllCreatesTheCorrectSql() {
         AuthorEntity authorEntity = TestDataUtil.createTestAuthorA();
-        BookEntity bookEntityA = TestDataUtil.createTestBookA(authorEntity);
+        BookEntity bookEntityA = TestDataUtil.createTestBookEntityA(authorEntity);
         underTest.save(bookEntityA);
 
         BookEntity bookEntityB = TestDataUtil.createTestBookB(authorEntity);
@@ -61,7 +61,7 @@ public class BookEntityRepositoryIntegrationTests {
     @Test
     public void testThatBookCanBeUpdated() {
         AuthorEntity authorEntity = TestDataUtil.createTestAuthorA();
-        BookEntity bookEntity = TestDataUtil.createTestBookA(authorEntity);
+        BookEntity bookEntity = TestDataUtil.createTestBookEntityA(authorEntity);
         underTest.save(bookEntity);
         bookEntity.setTitle("upated");
         underTest.save(bookEntity);
@@ -73,7 +73,7 @@ public class BookEntityRepositoryIntegrationTests {
     @Test
     public void testThatBookCanBeDeleted() {
         AuthorEntity authorEntity = TestDataUtil.createTestAuthorA();
-        BookEntity bookEntity = TestDataUtil.createTestBookA(authorEntity);
+        BookEntity bookEntity = TestDataUtil.createTestBookEntityA(authorEntity);
         underTest.deleteById(bookEntity.getIsbn());
         Optional<BookEntity> result = underTest.findById(bookEntity.getIsbn());
         assertThat(result).isEmpty();

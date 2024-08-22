@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @Log
-public class DataBaseApplication {
+public class BooksApiApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(DataBaseApplication.class, args);
+		SpringApplication.run(BooksApiApplication.class, args);
 	}
 }
