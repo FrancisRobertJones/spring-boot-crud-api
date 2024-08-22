@@ -1,8 +1,7 @@
-package com.fullstackfran.starter.domain;
+package com.fullstackfran.starter.entities;
 
 
 import jakarta.persistence.*;
-import jdk.jfr.Enabled;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name= "authors")
-public class Author {
+public class AuthorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator =  "author_id_seq")
     private Long id;

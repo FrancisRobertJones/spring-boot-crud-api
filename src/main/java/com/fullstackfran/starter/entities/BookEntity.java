@@ -1,4 +1,4 @@
-package com.fullstackfran.starter.domain;
+package com.fullstackfran.starter.entities;
 
 
 import jakarta.persistence.*;
@@ -14,12 +14,12 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "books")
 
-public class Book {
+public class BookEntity {
     @Id
     private String isbn;
     private String title;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id")
-    private Author author;
+    private AuthorEntity authorEntity;
 }
